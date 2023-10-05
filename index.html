@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- This is trash, but that's okay -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.6"
+    integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
+    crossorigin="anonymous"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="inset mx-6 my-12 flex ">
+    <div class="grow mr-4">
+      <h2 class="text-3xl border-b-2">Film List</h2>
+      <ul id="film-list" class="flex flex-col gap-1 mt-6">
+        {{ range .Films }}
+          {{ block "film-list-element" .}}
+            <li class="text-lg bg-blue-600 p-2 text-white rounded">{{ .Title }} - {{ .Director }}</li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+    <div class="" style="min-width: 300px;">
+      <h2 class="text-3xl border-b-2">Add Film</h2>
+      <form hx-post="/add-film/" hx-target="#film-list" hx-swap="beforeend" class="flex flex-col mt-6 " action="">
+        <label for="title" class="text-sm mt-3">Title </label>
+        <input id="title" name="title" type="text" class="text-md border border-gray-500 rounded p-1">
+        <label for="director" class="text-sm mt-3">Director</label>
+        <input id="director" name="director" type="text" class="text-md border border-gray-500 rounded p-1">
+        <button class="font-semibold text-xl text-white p-3 mt-6 bg-blue-800 border rounded-md">Add</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
